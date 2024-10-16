@@ -14,6 +14,14 @@ pub struct Ticket {
     pub status: Status,
 }
 
+impl<'a> IntoIterator for &'a TicketStore {
+    type Item = &'a Ticket;
+    type IntoIter = std::slice::Iter<'a, Ticket>;
+    fn into_iter(self) -> Self::IntoIter {
+        self.tickets.iter()
+    }
+}
+
 #[derive(Clone, Debug, Copy, PartialEq)]
 pub enum Status {
     ToDo,
@@ -30,6 +38,14 @@ impl TicketStore {
 
     pub fn add_ticket(&mut self, ticket: Ticket) {
         self.tickets.push(ticket);
+    }
+
+    pub fn iter(&self) -> std::slice::Iter<Ticket> {
+        self.into_iter()
+    }
+
+    pub fn in_progress(&self) -> impl Iterator<Item = &Ticket> {
+        self.iter().filter(|x| x.status == Status::InProgress)
     }
 }
 

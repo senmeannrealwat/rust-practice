@@ -1,6 +1,10 @@
 // TODO: Define a function named `sum` that takes a reference to a slice of `u32` and returns the sum of all
 //  elements in the slice.
 
+fn sum(list: &[u32]) -> u32 {
+    list.iter().sum()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -10,7 +14,6 @@ mod tests {
         let v = vec![];
         assert_eq!(sum(&v), 0);
     }
-
     #[test]
     fn one_element() {
         let v = vec![1];
