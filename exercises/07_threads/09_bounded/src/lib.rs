@@ -1,7 +1,7 @@
 // TODO: Convert the implementation to use bounded channels.
 use crate::data::{Ticket, TicketDraft};
 use crate::store::{TicketId, TicketStore};
-use std::sync::mpsc::{Receiver, Sender};
+use std::sync::mpsc::{Receiver, Sender, TrySendError};
 
 pub mod data;
 pub mod store;
@@ -12,11 +12,11 @@ pub struct TicketStoreClient {
 }
 
 impl TicketStoreClient {
-    pub fn insert(&self, draft: TicketDraft) -> Result<TicketId, todo!()> {
+    pub fn insert(&self, draft: TicketDraft) -> Result<TicketId, TrySendError<String>> {
         todo!()
     }
 
-    pub fn get(&self, id: TicketId) -> Result<Option<Ticket>, todo!()> {
+    pub fn get(&self, id: TicketId) -> Result<Option<Ticket>, TrySendError<String>> {
         todo!()
     }
 }
